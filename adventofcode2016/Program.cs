@@ -80,6 +80,112 @@ namespace adventofcode2016
             Console.ReadKey();
             daytwo();
             Console.ReadKey();
+            daytwoparttwo();
+            Console.ReadKey();
+        }
+
+        public static void daytwoparttwo()
+        {
+            X = 0;
+            Y = 2;
+            string ans = "";
+            string[] d2i = inputday2.Split(',');
+            char[] char1 = d2i[0].ToCharArray();
+            char[] char2 = d2i[1].ToCharArray();
+            char[] char3 = d2i[2].ToCharArray();
+            char[] char4 = d2i[3].ToCharArray();
+            char[] char5 = d2i[4].ToCharArray();
+            ans = ans + goloop2(char1, ans);
+            ans = goloop2(char2, ans);
+            ans = goloop2(char3, ans);
+            ans = goloop2(char4, ans);
+            ans = goloop2(char5, ans);
+            Console.WriteLine(ans);
+        }
+
+        private static string goloop2(char[] char1, string ans)
+        {
+            for (int i = 0; i < char1.Length; i++)
+            {
+                if (char1[i] == 'U')
+                {
+                    Y = Y - 1;
+                    if (!isvalidmove(X, Y)) { Y = Y + 1; }
+                }
+                if (char1[i] == 'D')
+                {
+                    Y = Y + 1;
+                    if (!isvalidmove(X, Y)) { Y = Y - 1; }
+                }
+                if (char1[i] == 'L')
+                {
+                    X = X - 1;
+                    if (!isvalidmove(X, Y)) { X = X + 1; }
+                }
+                if (char1[i] == 'R')
+                {
+                    X = X + 1;
+                    if (!isvalidmove(X, Y)) { X = X - 1; }
+                }
+            }
+            ans = ans + getnum2(X, Y);
+            return ans;
+        }
+
+        private static string getnum2(int x, int y)
+        {
+            if (x == 0 && y == 0) { return "Er"; }
+            if (x == 1 && y == 0) { return "Er"; }
+            if (x == 2 && y == 0) { return "1"; }
+            if (x == 3 && y == 0) { return "Er"; }
+            if (x == 4 && y == 0) { return "Er"; }
+
+            if (x == 0 && y == 1) { return "Er"; }
+            if (x == 1 && y == 1) { return "2"; }
+            if (x == 2 && y == 1) { return "3"; }
+            if (x == 3 && y == 1) { return "4"; }
+            if (x == 4 && y == 1) { return "Er"; }
+
+            if (x == 0 && y == 2) { return "5"; }
+            if (x == 1 && y == 2) { return "6"; }
+            if (x == 2 && y == 2) { return "7"; }
+            if (x == 3 && y == 2) { return "8"; }
+            if (x == 4 && y == 2) { return "9"; }
+
+            if (x == 0 && y == 3) { return "Er"; }
+            if (x == 1 && y == 3) { return "A"; }
+            if (x == 2 && y == 3) { return "B"; }
+            if (x == 3 && y == 3) { return "C"; }
+            if (x == 4 && y == 3) { return "Er"; }
+
+            if (x == 0 && y == 4) { return "Er"; }
+            if (x == 1 && y == 4) { return "Er"; }
+            if (x == 2 && y == 4) { return "D"; }
+            if (x == 3 && y == 4) { return "Er"; }
+            if (x == 4 && y == 4) { return "Er"; }
+            else return "Er";
+        }
+
+        private static bool isvalidmove(int x, int y)
+        {
+            if(x==0 && y == 0) { return false; }
+            if (x == 0 && y == 1) { return false; }
+            if (x == 1 && y == 0) { return false; }
+
+            if (x == 4 && y == 0) { return false; }
+            if (x == 3 && y == 0) { return false; }
+            if (x == 4 && y == 1) { return false; }
+
+            if (x == 4 && y == 4) { return false; }
+            if (x == 3 && y == 4) { return false; }
+            if (x == 4 && y == 3) { return false; }
+
+            if (x == 0 && y == 4) { return false; }
+            if (x == 0 && y == 3) { return false; }
+            if (x == 1 && y == 4) { return false; }
+            if(x<0 || x> 4){ return false; }
+            if (y < 0 || y > 4) { return false; }
+            return true;
         }
 
         public static void daytwo()
