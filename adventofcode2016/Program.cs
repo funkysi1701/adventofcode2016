@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace adventofcode2016
 {
@@ -38,6 +39,8 @@ namespace adventofcode2016
             daytwo();
             Console.ReadKey();
             daytwoparttwo();
+            Console.ReadKey();
+            daythree();
             Console.ReadKey();
         }
 
@@ -211,6 +214,31 @@ namespace adventofcode2016
             ans = getkeypad(char5, ans);
 
             Console.WriteLine(ans);
+        }
+
+        public static void daythree()
+        {
+            string filepath = "C:\\Projects\\adventofcode2016\\adventofcode2016\\day3.txt";
+            int possible = 0;
+            int a;
+            int b;
+            int c;
+            string[] input3 = File.ReadAllLines(filepath);
+            for (int i = 0; i < input3.Length; i++)
+            {
+                input3[i] = input3[i].Trim();
+                input3[i] = input3[i].Replace("  ", ",");
+                string[] sides = input3[i].Split(',');
+                Int32.TryParse(sides[0], out a);
+                Int32.TryParse(sides[1], out b);
+                Int32.TryParse(sides[2], out c);
+
+                    if ((b + c > a) && (a + c > b) && (b + a > c)) possible++;
+            
+            }
+            
+            Console.WriteLine(possible);
+            
         }
 
         private static string getkeypad(char[] char1, string ans)
