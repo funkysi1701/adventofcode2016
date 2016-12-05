@@ -253,6 +253,7 @@ namespace adventofcode2016
             for (int i = 0; i < input4.Length; i++)
             {
                 string[] inputsplit = input4[i].Split('[');
+                string origstring = inputsplit[0];
                 string sectorIDstring = Regex.Replace(inputsplit[0], @"[^0-9]+", "");
                 inputsplit[0] = string.Concat(inputsplit[0].OrderBy(c => c));
                 inputsplit[0] = inputsplit[0].Replace('-', ' ');
@@ -270,10 +271,49 @@ namespace adventofcode2016
                 {
                     ans += c.charName;
                 }
-                if (ans.Substring(0, 5) == inputsplit[1]) { total += sectorID; }
+                if (ans.Substring(0, 5) == inputsplit[1]) {
+                    total += sectorID;
+                    string final = Caesar(origstring, sectorID);
+                    if (final.Contains("northpole"))
+                    {
+                        Console.WriteLine(final);
+                        Console.WriteLine(sectorID);
+                    }
+
+                }
             }
             Console.WriteLine(total);
 
+        }
+
+        static string Caesar(string value, int shift)
+        {
+            char[] buffer = value.ToCharArray();
+            int rem = shift % 26;
+            for (int i = 0; i < buffer.Length; i++)
+            {
+                // Letter.
+                char letter = buffer[i];
+                // Add shift to all.
+                if (letter == (char)'-')
+                {
+                    letter = ' ';
+                } else letter = (char)(letter + rem);
+                // Subtract 26 on overflow.
+                // Add 26 on underflow.
+                
+                if (letter > 'z' && letter != (char)' ')
+                {
+                    letter = (char)(letter - 26);
+                }
+                else if (letter < 'a' && letter != (char)' ')
+                {
+                    letter = (char)(letter + 26);
+                }
+                // Store.
+                buffer[i] = letter;
+            }
+            return new string(buffer);
         }
 
         private static string getkeypad(char[] char1, string ans)
