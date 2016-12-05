@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace adventofcode2016
 {
@@ -34,7 +35,6 @@ namespace adventofcode2016
         static void Main(string[] args)
         {
             dayone();
-
             Console.ReadKey();
             daytwo();
             Console.ReadKey();
@@ -42,73 +42,9 @@ namespace adventofcode2016
             Console.ReadKey();
             daythree();
             Console.ReadKey();
-        }
-
-        private static void dayone()
-        {
-            int move = 0;
-            int direction = 0;//define which direction we are facing 0 = N, 1 = E, 2 = S, 3 = W
-            locations.Add(myPosition);
-            string[] inputArray = inputday1.Split(',');
-
-            for (int i = 0; i < inputArray.Length; i++)
-            {
-                if (inputArray[i].Substring(0, 1) == "L")
-                {
-                    direction++;
-                    if (direction == 4) direction = 0;
-                }
-                if (inputArray[i].Substring(0, 1) == "R")
-                {
-                    direction--;
-                    if (direction == -1) direction = 3;
-                }
-                if (inputArray[i].Substring(0, 1) == " ")
-                {
-                    if (inputArray[i].Substring(1, 1) == "L")
-                    {
-                        direction++;
-                        if (direction == 4) direction = 0;
-                    }
-                    if (inputArray[i].Substring(1, 1) == "R")
-                    {
-                        direction--;
-                        if (direction == -1) direction = 3;
-                    }
-                }
-                if (inputArray[i].Substring(0, 1) == " ")
-                {
-                    Int32.TryParse(inputArray[i].Substring(2), out move);
-                }
-                else
-                {
-                    Int32.TryParse(inputArray[i].Substring(1), out move);
-                }
-
-                movealong(move, direction);
-            }
-            int Total = Math.Abs(X) + Math.Abs(Y);
-            Console.WriteLine("X " + X + " Y " + Y);
-            Console.WriteLine("Total " + Total);
-        }
-
-        public static void daytwoparttwo()
-        {
-            X = 0;
-            Y = 2;
-            string ans = "";
-            string[] inputday2string = inputday2.Split(',');
-            char[] word1 = inputday2string[0].ToCharArray();
-            char[] word2 = inputday2string[1].ToCharArray();
-            char[] word3 = inputday2string[2].ToCharArray();
-            char[] word4 = inputday2string[3].ToCharArray();
-            char[] word5 = inputday2string[4].ToCharArray();
-            ans = ans + checkdirection(word1, ans);
-            ans = checkdirection(word2, ans);
-            ans = checkdirection(word3, ans);
-            ans = checkdirection(word4, ans);
-            ans = checkdirection(word5, ans);
-            Console.WriteLine(ans);
+            //daythreepart2();
+            dayfour();
+            Console.ReadKey();
         }
 
         private static string checkdirection(char[] char1, string ans)
@@ -196,6 +132,53 @@ namespace adventofcode2016
             return true;
         }
 
+        private static void dayone()
+        {
+            int move = 0;
+            int direction = 0;//define which direction we are facing 0 = N, 1 = E, 2 = S, 3 = W
+            locations.Add(myPosition);
+            string[] inputArray = inputday1.Split(',');
+
+            for (int i = 0; i < inputArray.Length; i++)
+            {
+                if (inputArray[i].Substring(0, 1) == "L")
+                {
+                    direction++;
+                    if (direction == 4) direction = 0;
+                }
+                if (inputArray[i].Substring(0, 1) == "R")
+                {
+                    direction--;
+                    if (direction == -1) direction = 3;
+                }
+                if (inputArray[i].Substring(0, 1) == " ")
+                {
+                    if (inputArray[i].Substring(1, 1) == "L")
+                    {
+                        direction++;
+                        if (direction == 4) direction = 0;
+                    }
+                    if (inputArray[i].Substring(1, 1) == "R")
+                    {
+                        direction--;
+                        if (direction == -1) direction = 3;
+                    }
+                }
+                if (inputArray[i].Substring(0, 1) == " ")
+                {
+                    Int32.TryParse(inputArray[i].Substring(2), out move);
+                }
+                else
+                {
+                    Int32.TryParse(inputArray[i].Substring(1), out move);
+                }
+
+                movealong(move, direction);
+            }
+            int Total = Math.Abs(X) + Math.Abs(Y);
+            Console.WriteLine("X " + X + " Y " + Y);
+            Console.WriteLine("Total " + Total);
+        }
         public static void daytwo()
         {
             X = 1;
@@ -213,6 +196,24 @@ namespace adventofcode2016
             ans = getkeypad(char4, ans);
             ans = getkeypad(char5, ans);
 
+            Console.WriteLine(ans);
+        }
+        public static void daytwoparttwo()
+        {
+            X = 0;
+            Y = 2;
+            string ans = "";
+            string[] inputday2string = inputday2.Split(',');
+            char[] word1 = inputday2string[0].ToCharArray();
+            char[] word2 = inputday2string[1].ToCharArray();
+            char[] word3 = inputday2string[2].ToCharArray();
+            char[] word4 = inputday2string[3].ToCharArray();
+            char[] word5 = inputday2string[4].ToCharArray();
+            ans = ans + checkdirection(word1, ans);
+            ans = checkdirection(word2, ans);
+            ans = checkdirection(word3, ans);
+            ans = checkdirection(word4, ans);
+            ans = checkdirection(word5, ans);
             Console.WriteLine(ans);
         }
 
@@ -239,6 +240,40 @@ namespace adventofcode2016
             
             Console.WriteLine(possible);
             
+        }
+
+        public static void dayfour()
+        {
+            int total = 0;
+            string filepath = "C:\\Projects\\adventofcode2016\\adventofcode2016\\day4.txt";
+            //string input = "aaaaa-bbb-z-y-x-4123[abxyz]";
+            //string input = "a-b-c-d-e-f-g-h-987[abcde]";
+            //string input = "not-a-real-room-404[oarel]";
+            string[] input4 = File.ReadAllLines(filepath);
+            for (int i = 0; i < input4.Length; i++)
+            {
+                string[] inputsplit = input4[i].Split('[');
+                string sectorIDstring = Regex.Replace(inputsplit[0], @"[^0-9]+", "");
+                inputsplit[0] = string.Concat(inputsplit[0].OrderBy(c => c));
+                inputsplit[0] = inputsplit[0].Replace('-', ' ');
+                inputsplit[0] = inputsplit[0].Trim();
+
+                int sectorID;
+                Int32.TryParse(sectorIDstring, out sectorID);
+                inputsplit[0] = Regex.Replace(inputsplit[0], @"^[\d-]*\s*", "", RegexOptions.Multiline);
+                inputsplit[1] = inputsplit[1].Replace(']', ' ');
+                inputsplit[1] = inputsplit[1].TrimEnd();
+                var result = inputsplit[0].GroupBy(c => c).Select(c => new { charName = c.Key, charCount = c.Count() });
+                string ans = "";
+
+                foreach (var c in result.OrderByDescending(c => c.charCount))
+                {
+                    ans += c.charName;
+                }
+                if (ans.Substring(0, 5) == inputsplit[1]) { total += sectorID; }
+            }
+            Console.WriteLine(total);
+
         }
 
         private static string getkeypad(char[] char1, string ans)
