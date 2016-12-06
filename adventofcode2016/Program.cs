@@ -309,8 +309,38 @@ namespace adventofcode2016
             Console.WriteLine(char7.Substring(5, 1));
             string char8 = calcHash(input);
             Console.WriteLine(char8.Substring(5, 1));
+            List<string> part2index = new List<string>();
+            List<string> part2value = new List<string>();
+            string temp = calcHash(input);
+            string ans = "";
+            start = 1;
+            for (int i = 0; i < 50; i++)
+            {
+                temp = calcHash(input);
+                part2index.Add(temp.Substring(5, 1));
+                part2value.Add(temp.Substring(6, 1));
+            }
+            int first = part2index.IndexOf("0");
+            ans = ans + part2value[first];
+            first = part2index.IndexOf("1");
+            ans = ans + part2value[first];
+            first = part2index.IndexOf("2");
+            ans = ans + part2value[first];
+            first = part2index.IndexOf("3");
+            ans = ans + part2value[first];
+            first = part2index.IndexOf("4");
+            ans = ans + part2value[first];
+            first = part2index.IndexOf("5");
+            ans = ans + part2value[first];
+            first = part2index.IndexOf("6");
+            ans = ans + part2value[first];
+            first = part2index.IndexOf("7");
+            ans = ans + part2value[first];
+            Console.WriteLine(ans);
         }
         public static int start = 1;
+
+        
 
         private static string calcHash(string input)
         {
