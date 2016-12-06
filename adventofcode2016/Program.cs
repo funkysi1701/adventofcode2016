@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Security.Cryptography;
 
 namespace adventofcode2016
 {
@@ -44,6 +45,8 @@ namespace adventofcode2016
             Console.ReadKey();
             //daythreepart2();
             dayfour();
+            Console.ReadKey();
+            dayfive();
             Console.ReadKey();
         }
 
@@ -284,6 +287,63 @@ namespace adventofcode2016
             }
             Console.WriteLine(total);
 
+        }
+
+        public static void dayfive()
+        {
+            string input = "abbhdwsy";
+            
+            string char1 = calcHash(input);
+            Console.WriteLine(char1.Substring(5,1));
+            string char2 = calcHash(input);
+            Console.WriteLine(char2.Substring(5, 1));
+            string char3 = calcHash(input);
+            Console.WriteLine(char3.Substring(5, 1));
+            string char4 = calcHash(input);
+            Console.WriteLine(char4.Substring(5, 1));
+            string char5 = calcHash(input);
+            Console.WriteLine(char5.Substring(5, 1));
+            string char6 = calcHash(input);
+            Console.WriteLine(char6.Substring(5, 1));
+            string char7 = calcHash(input);
+            Console.WriteLine(char7.Substring(5, 1));
+            string char8 = calcHash(input);
+            Console.WriteLine(char8.Substring(5, 1));
+        }
+        public static int start = 1;
+
+        private static string calcHash(string input)
+        {
+            for (int i = start; i < 132319300; i++)
+            {
+                start++;
+                string teststring = input + i.ToString().PadLeft(6, '0');
+                string hash = GetMd5Hash(MD5.Create(), teststring);
+                if (hash.StartsWith("00000")) { return hash; }
+            }
+
+            return "";
+        }
+
+        static string GetMd5Hash(MD5 md5Hash, string input)
+        {
+
+            // Convert the input string to a byte array and compute the hash.
+            byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+            // Create a new Stringbuilder to collect the bytes
+            // and create a string.
+            StringBuilder sBuilder = new StringBuilder();
+
+            // Loop through each byte of the hashed data 
+            // and format each one as a hexadecimal string.
+            for (int i = 0; i < data.Length; i++)
+            {
+                sBuilder.Append(data[i].ToString("x2"));
+            }
+
+            // Return the hexadecimal string.
+            return sBuilder.ToString();
         }
 
         static string Caesar(string value, int shift)
