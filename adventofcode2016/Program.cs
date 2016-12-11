@@ -400,6 +400,40 @@ namespace adventofcode2016
                          select grp.Key).First();
             string ans = most1 + most2 + most3 + most4 + most5 + most6 + most7 + most8;
             Console.WriteLine(ans);
+            var least1 = (from i in char1
+                         group i by i into grp
+                         orderby grp.Count() ascending
+                         select grp.Key).First();
+            var least2 = (from i in char2
+                         group i by i into grp
+                         orderby grp.Count() ascending
+                         select grp.Key).First();
+            var least3 = (from i in char3
+                         group i by i into grp
+                         orderby grp.Count() ascending
+                         select grp.Key).First();
+            var least4 = (from i in char4
+                         group i by i into grp
+                         orderby grp.Count() ascending
+                         select grp.Key).First();
+            var least5 = (from i in char5
+                         group i by i into grp
+                         orderby grp.Count() ascending
+                         select grp.Key).First();
+            var least6 = (from i in char6
+                         group i by i into grp
+                         orderby grp.Count() ascending
+                         select grp.Key).First();
+            var least7 = (from i in char7
+                         group i by i into grp
+                         orderby grp.Count() ascending
+                         select grp.Key).First();
+            var least8 = (from i in char8
+                         group i by i into grp
+                         orderby grp.Count() ascending
+                         select grp.Key).First();
+            ans = least1 + least2 + least3 + least4 + least5 + least6 + least7 + least8;
+            Console.WriteLine(ans);
         }
  
         private static string calcHash(string input)
