@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Security.Cryptography;
+using adventofcode2016;
 
 namespace adventofcode2016
 {
@@ -47,6 +48,8 @@ namespace adventofcode2016
             dayfour();
             Console.ReadKey();
             dayfive();
+            Console.ReadKey();
+            daysix();
             Console.ReadKey();
         }
 
@@ -340,8 +343,65 @@ namespace adventofcode2016
         }
         public static int start = 1;
 
-        
-
+        public static void daysix()
+        {
+            string filepath = "C:\\Projects\\adventofcode2016\\adventofcode2016\\day6.txt";
+            string[] input = File.ReadAllLines(filepath);
+            List<string> char1 = new List<string>();
+            List<string> char2 = new List<string>();
+            List<string> char3 = new List<string>();
+            List<string> char4 = new List<string>();
+            List<string> char5 = new List<string>();
+            List<string> char6 = new List<string>();
+            List<string> char7 = new List<string>();
+            List<string> char8 = new List<string>();
+            for (int i = 0; i < input.Length; i++)
+            {
+                char1.Add(input[i].Substring(0, 1));
+                char2.Add(input[i].Substring(1, 1));
+                char3.Add(input[i].Substring(2, 1));
+                char4.Add(input[i].Substring(3, 1));
+                char5.Add(input[i].Substring(4, 1));
+                char6.Add(input[i].Substring(5, 1));
+                char7.Add(input[i].Substring(6, 1));
+                char8.Add(input[i].Substring(7, 1));
+            }
+            var most1 = (from i in char1
+                        group i by i into grp
+                        orderby grp.Count() descending
+                        select grp.Key).First();
+            var most2 = (from i in char2
+                         group i by i into grp
+                         orderby grp.Count() descending
+                         select grp.Key).First();
+            var most3 = (from i in char3
+                         group i by i into grp
+                         orderby grp.Count() descending
+                         select grp.Key).First();
+            var most4 = (from i in char4
+                         group i by i into grp
+                         orderby grp.Count() descending
+                         select grp.Key).First();
+            var most5 = (from i in char5
+                         group i by i into grp
+                         orderby grp.Count() descending
+                         select grp.Key).First();
+            var most6 = (from i in char6
+                         group i by i into grp
+                         orderby grp.Count() descending
+                         select grp.Key).First();
+            var most7 = (from i in char7
+                         group i by i into grp
+                         orderby grp.Count() descending
+                         select grp.Key).First();
+            var most8 = (from i in char8
+                         group i by i into grp
+                         orderby grp.Count() descending
+                         select grp.Key).First();
+            string ans = most1 + most2 + most3 + most4 + most5 + most6 + most7 + most8;
+            Console.WriteLine(ans);
+        }
+ 
         private static string calcHash(string input)
         {
             for (int i = start; i < 132319300; i++)
